@@ -11,23 +11,18 @@ public class LinearEquation {
    this precondition is not violated)*/
 
     public LinearEquation(int x1, int y1, int x2, int y2){
-        if (x1==x2){
-            System.out.println("This is a horizontal line where x= "+ x1);
-        } else if (y2==y1) {
-            System.out.println("This is a vertical line where y= "+ y1);
-        }
-        else{
+            //initializes variables
             this.x1=x1;
             this.x2=x2;
             this.y1=y1;
             this.y2=y2;
-        }
     }
 
 
 /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
    the nearest hundredth */
     public double distance(){
+        //uses distance formula to output the distance
         return roundedToHundredth(Math.sqrt(Math.pow(x2-x1,2)+ Math.pow(y2-y1, 2)));
     }
 
@@ -36,7 +31,9 @@ public class LinearEquation {
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept(){
-        return roundedToHundredth(y1-(slope()*x1));
+        //calculates y int
+        double slope= slope();
+        return roundedToHundredth(y1-slope*x1);
     }
 
 
@@ -44,7 +41,9 @@ public class LinearEquation {
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
-        return roundedToHundredth((y2-y1)/(x2-x1));
+        //calculates slope
+        double slope= (double)(y2-y1)/(double)(x2-x1);
+        return roundedToHundredth(slope);
     }
 
 
@@ -74,7 +73,49 @@ public class LinearEquation {
                subtraction!
      */
     public String equation(){
+        int changeX= x2-x1;
+        int changeY= y2-y1;
+        //x is a counter variable
+        int x=1;
+        String slope="";
+        String yInt="";
+        String beforeYIntSign;
+        //checks if line is horizontal
+        if(y2==y1){
+            x=0;
+            return "y= "+y1;
+        }
+        //checks if delta x is negative and switches it to the absolute value and multiplies delta y by -1
+        if (changeX<0) {
+            changeX= Math.abs(changeX);
+            changeY= changeY*-1;
+        }
+        //checks if delta y and delta x is divisible. also checks if they equal to 1 or -1, so they can initialize slope
+        if(changeY%changeX == 0){
+            x=0;
+            slope= changeY/changeX +"";
+            if (changeY/changeX == 1){
+                slope="";
+            }
+            if (changeY/changeX==-1){
+                slope= "-";
+            }
+        }
+        if (x==1){
+            slope= changeY+"/"+ changeX;
+        }
 
+        if (yIntercept()<0){
+            beforeYIntSign= " - ";
+            yInt= Math.abs(yIntercept())+ "";
+        } else if (yIntercept()==0.0) {
+            yInt="";
+            beforeYIntSign="";
+        } else{
+            beforeYIntSign =" + ";
+            yInt=yIntercept()+ "";
+        }
+        return "y= "+ slope +"x" + beforeYIntSign+ yInt;
     }
 
 
@@ -83,7 +124,12 @@ public class LinearEquation {
 
     /* Returns a String of the coordinate point on the line that has the given x value, with
        both x and y coordinates as decimals to the nearest hundredth, e.g (-5.0, 6.75) */
-    public String coordinateForX(double xValue)
+    public String coordinateForX(double xValue){
+        //finds coordinate with x value inputted
+        double xCor= (double)xValue;
+        double yCor= roundedToHundredth(slope()*xCor+yIntercept());
+        return "("+xCor+", "+ yCor+")";
+    }
 
 
 
@@ -95,6 +141,7 @@ public class LinearEquation {
         HINT:  the Math.round method can help with this!
      */
     public double roundedToHundredth(double toRound){
+            //rounds to hundredth
         return Math.round(toRound*100.0)/100.0;
     }
 
@@ -112,6 +159,14 @@ public class LinearEquation {
       equation(), slope(), yIntercept(), distance().
 
       */
-    public String lineInfo()
+    public String lineInfo(){
+        //prints out all info
+        return "The two points are: ("+ x1+", "+ y1+") and ("+ x2+ ", "+ y2+")\n"+
+                "The equation of the line between the points is: "+ equation()+"\n"+
+                "The slope of this line is: "+ slope()+"\n"+
+                "The y-intercept of the line is: "+ yIntercept()+"\n"+
+                "The distance between the two points is: "+ distance()+"\n\n";
+
+    }
 
 }
