@@ -19,6 +19,11 @@ public class LinearEquation {
     }
 
 
+    public String start(){
+        //welcomes the user
+        return "Welcome";
+    }
+
 /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
    the nearest hundredth */
     public double distance(){
@@ -101,10 +106,11 @@ public class LinearEquation {
                 slope= "-";
             }
         }
+        //assigns slope in fraction form if all other exceptions are not met. This is why there is a counter variable. else if did not work
         if (x==1){
             slope= changeY+"/"+ changeX;
         }
-
+        //assigns y int and its sign
         if (yIntercept()<0){
             beforeYIntSign= " - ";
             yInt= Math.abs(yIntercept())+ "";

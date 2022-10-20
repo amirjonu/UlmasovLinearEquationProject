@@ -2,7 +2,9 @@ import java.util.Scanner;
 public class LinearEquationRunner {
     public static void main(String[] args){
         Scanner s= new Scanner(System.in);
-        System.out.println("Welcome");
+        //create linear equation start to call start method. non-necessary but longer code necessary if used only one object
+        LinearEquation start= new LinearEquation(1,1,1,1);
+        System.out.println(start.start());
         //Enters coordinates
         System.out.print("Enter coordinate 1: ");
         String cor1= s.nextLine();
@@ -25,12 +27,12 @@ public class LinearEquationRunner {
             System.out.println("These points are on a vertical line: x = "+ cor1x);
         }else {
             //Create object and print info
-            LinearEquation equation = new LinearEquation(cor1x, cor1y, cor2x, cor2y);
-            System.out.println(equation.lineInfo());
+            LinearEquation obj = new LinearEquation(cor1x, cor1y, cor2x, cor2y);
+            System.out.println(obj.lineInfo());
             //accept value of x and prints point
             System.out.print("Enter a value for x: ");
             double newX = s.nextDouble();
-            System.out.println("The point on the line is " + equation.coordinateForX(newX));
+            System.out.println("The point on the line is " + obj.coordinateForX(newX));
 
         }
 
